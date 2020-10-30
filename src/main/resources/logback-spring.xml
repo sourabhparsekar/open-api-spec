@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <property name="LOGS" value="./logs" />
+
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %black(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %yellow(%c{1.}): %msg%n%throwable
+            </Pattern>
+        </layout>
+    </appender>
+
+    <appender name="RollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS}/open-api-logger.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>
+                %d %p %c{1.} [%t] : %m%n
+            </Pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- Daily Roll over or after 10 MB-->
+            <fileNamePattern>${LOGS}/archived/open-api-logger-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!-- Max History 7 days-->
+            <maxHistory>7</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>50MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+
+    <!-- Root Logger to catch all unknown exceptions -->
+    <root level="ERROR">
+        <appender-ref ref="RollingFile" />
+        <appender-ref ref="Console"/>
+    </root>
+
+    <!-- Logger for package, multiple logger for diff packages can be used-->
+    <logger name="com.openapi" level="INFO" additivity="false">
+        <appender-ref ref="RollingFile" />
+        <appender-ref ref="Console"/>
+    </logger>
+
+</configuration>
