@@ -5,6 +5,7 @@ import com.openapi.model.EmployeeRequest;
 import com.openapi.service.EmployeeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -36,8 +37,8 @@ public class EmployeeController {
     @Operation(summary = "Add New Employee")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "New Employee added", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Employee.class))}),
-            @ApiResponse(responseCode = "400", description = "Bad Request"),
-            @ApiResponse(responseCode = "500", description = "Internal Server Error")
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = { @Content(schema = @Schema(hidden = true))} ),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = { @Content(schema = @Schema(hidden = true))} )
     })
     public ResponseEntity<Employee> addNewEmployee(@RequestBody EmployeeRequest employeeRequest) {
         logger.info("TIMESTAMP:{}:Add New Employee:First Name - {}:Last Name - {}", System.currentTimeMillis(), employeeRequest.getFirstName(), employeeRequest.getLastName());
@@ -53,9 +54,9 @@ public class EmployeeController {
     @GetMapping("/employees")
     @Operation(summary = "Get all Employees")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "All Employees returned", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Employee.class))}),
-            @ApiResponse(responseCode = "400", description = "Bad Request"),
-            @ApiResponse(responseCode = "500", description = "Internal Server Error")
+            @ApiResponse(responseCode = "200", description = "All Employees returned", content = {@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Employee.class)))}),
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = { @Content(schema = @Schema(hidden = true))} ),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = { @Content(schema = @Schema(hidden = true))} )
     })
     public ResponseEntity<List<Employee>> getAllEmployees() {
         List<Employee> employeeList  = employeeService.getEmployees();
@@ -71,8 +72,8 @@ public class EmployeeController {
     @Operation(summary = "Get Employee by id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Employee returned", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Employee.class))}),
-            @ApiResponse(responseCode = "400", description = "Bad Request"),
-            @ApiResponse(responseCode = "500", description = "Internal Server Error")
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = { @Content(schema = @Schema(hidden = true))} ),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = { @Content(schema = @Schema(hidden = true))} )
     })
     public ResponseEntity<Employee> getEmployee(@Parameter(description = "Id to get Employee") @PathVariable("employee-id") String employeeId) {
         logger.info("TIMESTAMP:{}:Get Employee:id - {}", System.currentTimeMillis(), employeeId);
@@ -92,8 +93,8 @@ public class EmployeeController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Employee updated", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Employee.class))}),
             @ApiResponse(responseCode = "201", description = "Employee created", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Employee.class))}),
-            @ApiResponse(responseCode = "400", description = "Bad Request"),
-            @ApiResponse(responseCode = "500", description = "Internal Server Error")
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = { @Content(schema = @Schema(hidden = true))} ),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = { @Content(schema = @Schema(hidden = true))} )
     })
     public ResponseEntity<Employee> updateEmployee(@RequestBody Employee employee) {
         logger.info("TIMESTAMP:{}:Update Employee:id - {}", System.currentTimeMillis(), employee.getId());
@@ -112,8 +113,8 @@ public class EmployeeController {
     @Operation(summary = "Delete Employee by id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Employee deleted", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Employee.class))}),
-            @ApiResponse(responseCode = "400", description = "Bad Request"),
-            @ApiResponse(responseCode = "500", description = "Internal Server Error")
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = { @Content(schema = @Schema(hidden = true))} ),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = { @Content(schema = @Schema(hidden = true))} )
     })
     public ResponseEntity<Employee> deleteEmployee(@Parameter(description = "Id to delete Employee") @PathVariable("employee-id") String employeeId) {
         logger.info("TIMESTAMP:{}:Delete Employee:id - {}", System.currentTimeMillis(), employeeId);
