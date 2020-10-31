@@ -1,5 +1,7 @@
 # Open API Specification - Swagger 3
-This is a demo project to understand basic implementation of Open API Specification. The Swagger UI will be configured and rendered. 
+This is a demo project to understand basic implementation of Open API Specification. The Swagger UI will be configured and rendered.
+
+The blog URL [OpenAPI Specification — Swagger UI](https://sourabhparsekar.medium.com/open-api-specification-swagger3-fc9ad3bbacdd) 
 
 ## Swagger UI for API Specification
 Swagger UI v3 provides a display framework that reads API specification document and generates an interactive documentation website. 
