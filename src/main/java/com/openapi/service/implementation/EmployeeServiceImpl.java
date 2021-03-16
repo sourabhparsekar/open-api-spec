@@ -42,7 +42,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Employee> getEmployees() {
         logger.debug("Get all employees from the employee store");
         List<Employee> employeeList = new ArrayList<>();
-        employeeStore.forEach((id, employee) ->  employeeList.add(employee));
+        employeeStore.forEach((id, employee) -> employeeList.add(employee));
         logger.debug("Employee Count {}", employeeStore.size());
         return employeeList;
     }
@@ -51,7 +51,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Employee getEmployee(String employeeId) {
         logger.debug("Get employee from the employee store");
         Employee employee = null;
-        if(employeeStore.containsKey(employeeId)){
+        if (employeeStore.containsKey(employeeId)) {
             employee = employeeStore.get(employeeId);
             logger.debug("Employee exists");
         } else {
@@ -65,7 +65,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Employee removeEmployee(String employeeId) {
         logger.debug("Remove employee from the employee store");
         Employee employee = null;
-        if(employeeStore.containsKey(employeeId)){
+        if (employeeStore.containsKey(employeeId)) {
             employee = employeeStore.remove(employeeId);
             logger.debug("Employee removed");
         } else {
@@ -79,7 +79,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Employee updateEmployee(Employee employee) {
         logger.debug("Update employee from the employee store");
         Employee updatedEmployee = null;
-        if(employeeStore.containsKey(employee.getId())){
+        if (employeeStore.containsKey(employee.getId())) {
             updatedEmployee = employee;
             removeEmployee(employee.getId());
             employeeStore.put(employee.getId(), employee);

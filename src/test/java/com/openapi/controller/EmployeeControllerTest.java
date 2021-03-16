@@ -10,7 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -27,6 +26,8 @@ class EmployeeControllerTest {
 
     private HttpHeaders httpHeaders;
 
+    private final String validToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJqYW5lZG9lQGV4YW1wbGUuY29tIiwibmFtZSI6IkphbmUgRG9lIiwiaWF0IjoxNTQ2MzAwODAwLCJleHAiOjE4OTM0NTYwMDB9.Csjq0GWRu5ChiEjNhzyDDuk9YR08gIwvnsfTkqoOISPb9ZEJcFGs6yrEZZ5lhyIneW-QIJZjqg8EPHaitFd6PncOb1zuFBcECK1aPNiVXQ1stS4GZZ0K7kMTfbn_bDtg3LwkScRLvd1UaXPX3gdWiyTWU_EQeBtpaKvN_NtqzRlAVslmHfsi50dgDmg0Pbk80oLqbN8TB4JctgM6VuvI5yCrwyID9GNwItSMVpd1ZjOmGTiof2hqi6E3KH3j9RfWz_Gq4Vq61XvYKEooDzDjuFSoie1vkptVp2fngRMBTxTTM2ZBCEpd_HbcrqBiHuIMw19nyXr8mP7n8rPLG4S1LA";
+
     @BeforeEach
     void setUp() {
 
@@ -36,6 +37,7 @@ class EmployeeControllerTest {
 
         httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        httpHeaders.setBearerAuth(validToken);
         System.out.println("Headers are set");
     }
 
@@ -63,7 +65,7 @@ class EmployeeControllerTest {
 
         ResponseEntity<Object[]> entity = new TestRestTemplate().exchange(baseUrl, HttpMethod.GET, new HttpEntity<>(httpHeaders), Object[].class);
         Assertions.assertEquals(HttpStatus.OK, entity.getStatusCode());
-        Assertions.assertEquals(Boolean.TRUE, entity.getBody().length>=1);
+        Assertions.assertEquals(Boolean.TRUE, entity.getBody().length >= 1);
 
     }
 
@@ -75,7 +77,7 @@ class EmployeeControllerTest {
         HttpEntity<EmployeeRequest> httpEntity = new HttpEntity<>(request, httpHeaders);
         ResponseEntity<Employee> responseEntity = new TestRestTemplate().postForEntity(baseUrl, httpEntity, Employee.class);
         Assertions.assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
-        String url = baseUrl+"/"+responseEntity.getBody().getId();
+        String url = baseUrl + "/" + responseEntity.getBody().getId();
         System.out.println(url);
 
         ResponseEntity<Employee> entity = new TestRestTemplate().exchange(url, HttpMethod.GET, new HttpEntity<>(httpHeaders), Employee.class);
@@ -143,7 +145,7 @@ class EmployeeControllerTest {
         ResponseEntity<Employee> responseEntity = new TestRestTemplate().postForEntity(baseUrl, httpEntity, Employee.class);
         Assertions.assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
 
-        String url = baseUrl+"/"+responseEntity.getBody().getId();
+        String url = baseUrl + "/" + responseEntity.getBody().getId();
         System.out.println(url);
 
         ResponseEntity<Employee> entity = new TestRestTemplate().exchange(url, HttpMethod.DELETE, new HttpEntity<>(httpHeaders), Employee.class);

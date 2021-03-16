@@ -7,10 +7,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class OpenApi3ApplicationTests {
 
-	@Test
-	void contextLoads() {
-		//just to remove sonarlint issue
-		Assertions.assertEquals("MAIN", "MA"+"IN");
-	}
+    @Test
+    void contextLoads() {
+        //just to remove sonarlint issue
+        Assertions.assertEquals("MAIN", "MA" + "IN");
+    }
 
 }

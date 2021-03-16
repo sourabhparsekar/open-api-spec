@@ -6,7 +6,7 @@ import com.squareup.moshi.Json;
  * @author sourabh
  * @implNote Employee class to be used for Request, Response
  */
-public class Employee extends EmployeeRequest{
+public class Employee extends EmployeeRequest {
 
     @Json(name = "id")
     private String id;

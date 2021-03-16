@@ -13,6 +13,7 @@ public interface EmployeeService {
 
     /**
      * Method will add a new employee and generate a unique id for employee
+     *
      * @param request
      * @return
      */
@@ -20,12 +21,14 @@ public interface EmployeeService {
 
     /**
      * Method returns list of employees in Employee Store
+     *
      * @return
      */
     List<Employee> getEmployees();
 
     /**
      * Given an employee id, return employee details
+     *
      * @param employeeId
      * @return
      */
@@ -33,6 +36,7 @@ public interface EmployeeService {
 
     /**
      * Method to delete employee
+     *
      * @param employeeId
      * @return
      */
@@ -40,6 +44,7 @@ public interface EmployeeService {
 
     /**
      * Given an employee identified by id, update employee name
+     *
      * @param employee
      * @return
      */
